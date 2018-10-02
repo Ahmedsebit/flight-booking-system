@@ -16,6 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf import settings
+from django.conf.urls import url, include
+from django.conf.urls.static import static
+
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/customer_account/', include(('customer_account.api.urls', 'customer_account'), namespace='customer-account-api')),
+    path('api/flight/', include(('flight.api.urls', 'flight'), namespace='flight-api')),
+    path('api/bookings/', include(('bookings.api.urls', 'bookings'), namespace='bookings-api')),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
+    url(r'^api-token-verify/', verify_jwt_token),
 ]
