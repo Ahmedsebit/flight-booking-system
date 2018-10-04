@@ -13,4 +13,5 @@ class FlightModelForm(forms.ModelForm):
             'date',
             'dapart',
             'arrive',
+            'price'
         ]

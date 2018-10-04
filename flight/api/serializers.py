@@ -15,4 +15,5 @@ class FlightModelSerializer(serializers.ModelSerializer):
             'date',
             'dapart',
             'arrive',
+            'price'
         ]

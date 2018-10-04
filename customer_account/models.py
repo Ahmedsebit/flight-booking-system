@@ -24,7 +24,7 @@ def create_customer_account(sender, instance, created, **kwargs):
     if created:
         CustomerAccount.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_customer_account(sender, instance, **kwargs):
-    profile = User(user=instance)
-    profile.save()
+# @receiver(post_save, sender=User)
+# def save_customer_account(sender, instance, **kwargs):
+#     profile = User(user=instance)
+#     profile.save()

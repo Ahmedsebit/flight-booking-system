@@ -21,6 +21,7 @@ class Flight(models.Model):
     date = models.DateTimeField(null=False)
     dapart = models.TimeField(null=False)
     arrive = models.TimeField(null=False)
+    price = models.IntegerField(null=False, default=50000)
 
     def __str__ (self):
         return str(self.name)
