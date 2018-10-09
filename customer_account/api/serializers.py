@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from account.api.serializers import UserDisplaySerializer
-
+from user.api.serializers import UserDisplaySerializer
+from rest_framework.fields import CurrentUserDefault
 
 from customer_account.models import CustomerAccount
 
 class CustomerAccountModelSerializer(serializers.ModelSerializer):
 
-    user = UserDisplaySerializer(read_only=True)
+    # user = UserDisplaySerializer(read_only=True)
 
     class Meta:
         model = CustomerAccount
         fields = [
-            'user',
+            # 'user',
             "bio",
             'birth_date',
             "country_of_residence",
@@ -21,3 +21,6 @@ class CustomerAccountModelSerializer(serializers.ModelSerializer):
             "address",
             "gender",
         ]
+
+    def save(self):
+        user = CurrentUserDefault()

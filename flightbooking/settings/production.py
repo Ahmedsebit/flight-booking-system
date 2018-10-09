@@ -39,12 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth.registration',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
     'customer_account',
-    'account',
+    'user',
     'flight',
     'seats',
     'bookings',
     'crispy_forms',
+    'payment'
 ]
 
 MIDDLEWARE = [
@@ -129,7 +134,7 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -138,5 +143,11 @@ REST_FRAMEWORK = {
     ),
 }
 
-
 LOGIN_REDIRECT_URL = '/index'
+
+AUTH_USER_MODEL = "user.CustomUser" 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+SITE_ID=1

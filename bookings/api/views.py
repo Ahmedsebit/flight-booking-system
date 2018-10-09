@@ -3,6 +3,7 @@ from rest_framework import permissions
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from django.db.models import Q
 from bookings.models import Booking
+from flight.models import Flight
 
 from .serializers import BookingModelSerializer
 
@@ -15,7 +16,6 @@ class BookingApiCustomerListView(generics.ListAPIView):
     serializer_class = BookingModelSerializer
 
     def get_queryset(self, *args, **kwargs):
-
         qs = Booking.objects.filter(user__user=self.request.user)
         query = self.request.GET.get("q", None)
         if query is not None:
@@ -27,6 +27,7 @@ class BookingApiCustomerListView(generics.ListAPIView):
 
 class BookingApiListView(generics.ListAPIView):
 
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = BookingModelSerializer
     
     def get_queryset(self, *args, **kwargs):
@@ -42,10 +43,7 @@ class BookingApiListView(generics.ListAPIView):
 class BookingAPICreateView(generics.CreateAPIView):
 
     serializer_class = BookingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    # authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiDetailView(generics.RetrieveAPIView):
@@ -53,6 +51,7 @@ class BookingApiDetailView(generics.RetrieveAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiDestroyView(generics.DestroyAPIView):

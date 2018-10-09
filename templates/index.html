@@ -11,7 +11,11 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
         $(document).ready(function(){
-            var query = getParameterByName('q')
+            // var query = getParameterByName('q')
+			var location = getParameterByName('location')
+			var destination = getParameterByName('destination')
+			var date = getParameterByName('date')
+			var return_date = getParameterByName('return_date')
             var referList = [];
             var nextReferralUrl;
             function parseRefer(){
@@ -25,6 +29,7 @@
                         )
                 }else{
 					$.each(referList, function(key,value){
+						var id = value.id
 						var name = value.name
 						var location = value.location 
 						var destination = value.destination
@@ -33,14 +38,14 @@
 						var dapart = value.dapart
 						var arrive = value.arrive
 						var price = value.price
-						console.log("name")
+						console.log(id)
 						$("#flight-list").append(
 							"<li class=\"list-group-item\">"+
 								"<div class=\"card\">"+
 									"<h3 class=\"card-title\" style=\"color: black\">"+name+"</h5>"+
 									"<h5 class=\"card-title\" style=\"color: black\">"+ location +"<span class=\"card-text\" style=\"color: black;font-size:100%;font-weight: 300;\">"+dapart+"</span>- "+ destination +"<span class=\"card-text\" style=\"color: black;font-size:100%;font-weight: 300;\">"+ arrive +"</span></h5>"+
-									"<h2 class=\"card-title\" style=\"color: black\">"+price+"= </h2>"+
-									"<a href=\"#\" class=\"btn btn-primary\">Book</a>"+
+									"<h2 class=\"card-title\" style=\"color: black\">"+price+"/= </h2>"+
+									"<a href=\"bookings/"+ id +"/create\" class=\"btn btn-primary\">Book</a>"+
 								"</div>"+
 							"</li>"
 						)
@@ -58,12 +63,15 @@
                 $.ajax({
                 url:fetchUrl,
                 data:{
-                    'q':query
+					'location':location,
+					'destination':destination,
+					'arrive':date,
+					'return-date':return_date
                 },
                 method:"GET",
                 success:function(data){
                     referList = data
-					console.log(data.results);
+					console.log(data);
                     parseRefer() 
                 },
                 error: function(data){
@@ -89,30 +97,30 @@
 					<div class="card style_prevu_kit" style="background-color: rgba(245, 245, 245, 0.4);padding:30px;">
 							<div class="card-block">
 								<h3>Search Flights</h3>
-									<form  action="#" method="POST">
+									<form  action="index" method="GET">
 									<div class="form-row">
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-12">
 											<input type="text" class="form-control" id="inputFrom" name="location" placeholder="From" style="background-color: rgba(245, 245, 245, 0.4);"  required>
 										</div>
-										<div class="form-group col-md-6">
+										<div class="form-group col-md-12">
 											<input type="text" class="form-control" id="inputTo" name="destination" placeholder="Destination" style="background-color: rgba(245, 245, 245, 0.4);"  required>
 										</div>
-										<div class="col-md-3">Depart</div>
+										<div class="col-md-3">Departure Date</div>
 										<div class="form-group  col-md-9">
-											<input type="date" class="form-control" id="inputDepart" name="depart" placeholder="Email" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+											<input type="date" class="form-control" id="inputDepart" name="date" style="background-color: rgba(245, 245, 245, 0.4);"  required>
 										</div>
-										<div class="col-md-3">Arrive</div>
+										<!-- <div class="col-md-3">Return Date</div>
 										<div class="form-group  col-md-9">
-											<input type="date" class="form-control" id="inputArrive" name="arrive" placeholder="Userame" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+											<input type="date" class="form-control" id="inputArrive" name="return-date" style="background-color: rgba(245, 245, 245, 0.4);"  required>
 										</div>
-									</div>
-									<div class="form-group">
-										<select class="custom-select" id="inputtripType" name="tripType" style="background-color: rgba(245, 245, 245, 0.4);"  required>
-											<option selected>Trip type...</option>
-											<option value="one way">One way</option>
-											<option value="round trip">Round trip</option>
-										</select>
-									</div>
+										</div>
+										<div class="form-group">
+											<select class="custom-select" id="inputtripType" name="tripType" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+												<option selected>Trip type...</option>
+												<option value="one way">One way</option>
+												<option value="round trip">Round trip</option>
+											</select> -->
+										</div>
 										<!-- <a type="submit" class="btn btn-outline btn-xl js-scroll-trigger">SignUp</a> -->
 										<button class="btn btn-primary btn-xl rounded-pill mt-5" type="submit">Search</button>
 									</form>

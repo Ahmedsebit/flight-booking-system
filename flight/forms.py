@@ -6,11 +6,11 @@ class FlightModelForm(forms.ModelForm):
     class Meta:
         model = Flight
         fields = [
+            'id',
             'name',
             'location',
             'destination',
             'status',
-            'date',
             'dapart',
             'arrive',
             'price'
