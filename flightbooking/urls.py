@@ -16,6 +16,41 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf import settings
+from django.conf.urls import url, include
+from django.conf.urls.static import static
+
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+
+from .views import home, index, book, profile, SaveProfile, download_image, regular_expresion
+
+# from account.views import UserRegistrationView
+
 urlpatterns = [
+    path('', home, name='home'),
+    path('index', index, name='index'),
+    path('profile', profile, name='profile'),
+    path('saved/', SaveProfile, name = 'saved'),
+    path('download/', download_image, name = 'download'),
+    path('regular_expresion/', regular_expresion, name = 'regular_expresion'),
+    url(r'^book/(?P<pk>\d+)/$', book, name='book'),
     path('admin/', admin.site.urls),
-]
+    path('api/account/', include(('user.api.urls', 'user'), namespace='user-api')),
+    path('api/customer_account/', include(('customer_account.api.urls', 'customer_account'), namespace='customer-account-api')),
+    path('api/flight/', include(('flight.api.urls', 'flight'), namespace='flight-api')),
+    path('api/seats/', include(('seats.api.urls', 'seats'), namespace='seats-api')),
+    path('api/bookings/', include(('bookings.api.urls', 'bookings_api'), namespace='bookings-api')),
+    path('api/payment/', include(('payment.api.urls', 'payment_api'), namespace='payment-api')),
+    path('bookings/', include(('bookings.urls', 'bookings'), namespace='bookings')),
+    path('payment/', include(('payment.urls', 'payment'), namespace='payment')),
+    path('user/', include('django.contrib.auth.urls')),
+    path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
+    # path('user/register/', UserRegistrationView.as_view(), name='register'),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
+    url(r'^api-token-verify/', verify_jwt_token),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if settings.DEBUG:
+    urlpatterns += (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))

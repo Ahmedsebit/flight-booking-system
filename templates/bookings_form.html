@@ -1,0 +1,206 @@
+{% extends "base.html"  %}
+{% block script %}
+    <script>
+        function getParameterByName(name, url) {
+            if (!url) {
+              url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        $(document).ready(function(){
+          var query = getParameterByName('q');
+          var taskList = [];
+		  var newData = {}
+          var all = 0;
+
+		  function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie !== '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) === (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			var csrftoken = getCookie('csrftoken');
+          
+          function attachTask(data, prepend){
+			var items = data;
+			console.log(items)
+			var taskHTMLFormat = "<div class=\"form-row\">"
+								+		"<div class=\"col-md-3\">Date</div>"
+								+		"<div class=\"form-group col-md-9\">"
+								+			"<label class=\"form-control\">" + items.date +"</label>"
+								+		"</div>"
+								+		"<div class=\"col-md-3\">From</div>"
+								+		"<div class=\"form-group col-md-3\">"
+								+			"<label class=\"form-control\">" + items.location +"</label>"
+								+		"</div>"
+								+		"<div class=\"col-md-3\">To</div>"
+								+		"<div class=\"form-group col-md-3\">"
+								+			"<label class=\"form-control\">" + items.destination +"</label>"
+								+		"</div>"
+								+		"<div class=\"col-md-3\">Depart</div>"
+								+		"<div class=\"form-group col-md-3\">"
+								+			"<label class=\"form-control\">" + items.dapart +"</label>"
+								+		"</div>"
+								+		"<div class=\"col-md-3\">Arrive</div>"
+								+		"<div class=\"form-group col-md-3\">"
+								+			"<label class=\"form-control\">" + items.arrive +"</label>"
+								+		"</div>"
+                                +		"<div class=\"col-md-3\">Price</div>"
+								+		"<div class=\"form-group col-md-9 align-middle\">"
+								+			"<label class=\"form-control\">" + items.price +"</label>"
+								+		"</div>"
+								+		"<div class=\"col-md-3\">Select Seat</div>"
+								+		"<div class=\"form-group col-md-9\">"
+								+			"<select name=\"seat\" class=\"custom-select\" id=\"inputtripType\" style=\"background-color: rgba(245, 245, 245, 0.4);\">"
+								+				"{% for seat in seats %}"
+								+					"{% if seat not in booked_seats %}"
+								+						"<option value=\"{{seat.id}}\">{{seat.name}}</option>"
+								+					"{% endif %}"
+								+				"{% endfor %}"
+								+			"</select>"
+								+		"</div>"
+								+		"<div class=\"form-group col-md-12 align-middle\">"
+								+			"<button class=\"btn btn-primary btn-xl rounded-pill mt-5\" type=\"submit\">Book</button>"
+								+		"</div>"
+                  if(prepend ==true){
+                    $("#flight-list").prepend(taskHTMLFormat)
+                  }else{
+                    $("#flight-list").append(taskHTMLFormat)
+                  }
+          }
+
+
+          function parseTasks(data){
+			attachTask(data)
+          }
+
+          function fetchTasks(url){
+            var fetchUrl;
+            if (!url){
+                fetchUrl = '/api/flight/{{flight.id}}/'
+            }else{
+                fetchUrl = url
+            }
+            $.ajax({
+                url: fetchUrl,
+                data: url,
+                method: "GET",
+                success: function(data){
+				newData = JSON.stringify(data)
+                taskList = data
+                console.log(typeof taskList)
+                parseTasks(data)
+                },
+                error: function(data){
+                console.log("error")
+                console.log(data)
+                }
+            })
+          }
+          fetchTasks()
+        });
+	</script>
+	
+{% endblock script %}
+{% block title %}{{ block.super }} | Welcome{% endblock title %}
+{% block content %}
+
+	<header class="masthead text-center text-white">
+		<div class="masthead-content">
+            <div class="container">
+                <div class="row align-items-center" style="padding:30px;">
+                    <div class="col-lg-12">
+                        <div class="card style_prevu_kit" style="background-color: rgba(245, 245, 245, 0.4);padding:30px;">
+                                <div class="card-block">
+                                    <form id="flight-list"  method="post">{% csrf_token %}
+                                        <select style="visibility: hidden" name="user" required id="id_user">
+                                        <option value="{{user.id}}" selected>{{user.id}}</option>
+                                        <option value="{{user.id}}">{{user.id}}</option>
+                                        </select></p>
+                                        <select name="flight" required id="id_flight" style="visibility: hidden">
+                                        <option value="{{flight.id}}" selected>{{flight.id}}</option>
+                                        <option value="{{flight.id}}">{{flight.id}}</option>     
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+</header>
+
+<section>
+<div class="container">
+<div class="row align-items-center">
+    <div class="col-lg-6 order-lg-2">
+    <div class="p-5">
+        
+    </div>
+    </div>
+    <div class="col-lg-6 order-lg-1">
+    <div class="p-5">
+        <h2 class="display-4">Our Flights!</h2>
+        <p>Flights Our extensive flight network makes travelling the world a breeze.</p> 
+        </p>Covering all corners of the globe, we can get you the right flight at the right price without the hassle.</p>
+    </div>
+    </div>
+</div>
+</div>
+</section>
+
+<section id="services" class="features">
+<div class="container">
+<div class="row align-items-center">
+    <div class="col-lg-4 order-lg-1">
+    <div class="feature-item">
+        <i class="fas fa-thumbs-up fa-3x"></i>
+        <h3>Secure Payment</h3>
+        <p>Convenient & reliable booking and payment system!</p>
+    </div>
+    </div>
+    <div class="col-lg-4 order-lg-1">
+        <div class="feature-item">
+        <i class="fas fa-file fa-3x"></i>
+        <h3>One-stop Service</h3>
+        <p>Price guaranteed upon confirmed payment, booking guaranteed once tickets issued!</p>
+        </div>
+    </div>
+    <div class="col-lg-4 order-lg-1">
+        <div class="feature-item">
+        <i class="fas fa-smile fa-3x"></i>
+        <h3>Travel at Your Fingertips</h3>
+        <p>Manage travel bookings easily through the app, website or by phone!</p>
+        </div>
+    </div>
+    </div>
+</div>
+</section>
+
+
+<!-- Footer -->
+<footer class="py-5" style="background-color: #133b33">
+<div class="container">
+<p class="m-0 text-center text-white small">Copyright &copy; Ludaya 2018 <a href="#">  Privacy policy</a> <i class="fab fa-facebook-f fa-2x"></i>  <i class="fab fa-twitter fa-2x"></i>
+</div>
+<!-- /.container -->
+</footer>
+
+{% endblock content %}

@@ -1,0 +1,205 @@
+{% extends "base.html"  %}
+{% block script %}
+    <script>
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        $(document).ready(function(){
+            // var query = getParameterByName('q')
+			var location = getParameterByName('location')
+			var destination = getParameterByName('destination')
+			var date = getParameterByName('date')
+			var return_date = getParameterByName('return_date')
+            var referList = [];
+            var nextReferralUrl;
+            function parseRefer(){
+                if (referList == 0){
+                    $("#flight-list").append(
+						"<li class=\"list-group-item\">"+
+							"<div class=\"card\">"+
+								"<h5 class=\"card-title\" style=\"color: black\">No Flights Available</h5>"+
+							"</div>"+
+						"</li>"
+                        )
+                }else{
+					$.each(referList, function(key,value){
+						var id = value.id
+						var name = value.name
+						var location = value.location 
+						var destination = value.destination
+						var status = value.status
+						var date = value.date
+						var dapart = value.dapart
+						var arrive = value.arrive
+						var price = value.price
+						console.log(id)
+						$("#flight-list").append(
+							"<li class=\"list-group-item\">"+
+								"<div class=\"card\">"+
+									"<h3 class=\"card-title\" style=\"color: black\">"+name+"</h5>"+
+									"<h5 class=\"card-title\" style=\"color: black\">"+ location +"<span class=\"card-text\" style=\"color: black;font-size:100%;font-weight: 300;\">"+dapart+"</span>- "+ destination +"<span class=\"card-text\" style=\"color: black;font-size:100%;font-weight: 300;\">"+ arrive +"</span></h5>"+
+									"<h2 class=\"card-title\" style=\"color: black\">"+price+"/= </h2>"+
+									"<a href=\"bookings/"+ id +"/create\" class=\"btn btn-primary\">Book</a>"+
+								"</div>"+
+							"</li>"
+						)
+                    })
+                }
+            }
+            function fetchReferals(url){
+                console.log("fetching...")
+                var fetchUrl;
+                if(!url){
+                    fetchUrl = "/api/flight/"
+                }else{
+                    fetchUrl = url
+                }
+                $.ajax({
+                url:fetchUrl,
+                data:{
+					'location':location,
+					'destination':destination,
+					'arrive':date,
+					'return-date':return_date
+                },
+                method:"GET",
+                success:function(data){
+                    referList = data
+					console.log(data);
+                    parseRefer() 
+                },
+                error: function(data){
+                    console.log("error");
+                    console.log(data);
+                }
+                })
+            }
+            fetchReferals()
+        });
+    </script>
+{% endblock script %}
+
+
+{% block title %}{{ block.super }} | Welcome{% endblock title %}
+{% block content %}
+	<header class="masthead text-center text-white">
+		<div class="masthead-content">
+
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6">
+					<div class="card style_prevu_kit" style="background-color: rgba(245, 245, 245, 0.4);padding:30px;">
+							<div class="card-block">
+								<h3>Search Flights</h3>
+									<form  action="index" method="GET">
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<input type="text" class="form-control" id="inputFrom" name="location" placeholder="From" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+										</div>
+										<div class="form-group col-md-12">
+											<input type="text" class="form-control" id="inputTo" name="destination" placeholder="Destination" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+										</div>
+										<div class="col-md-3">Departure Date</div>
+										<div class="form-group  col-md-9">
+											<input type="date" class="form-control" id="inputDepart" name="date" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+										</div>
+										<!-- <div class="col-md-3">Return Date</div>
+										<div class="form-group  col-md-9">
+											<input type="date" class="form-control" id="inputArrive" name="return-date" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+										</div>
+										</div>
+										<div class="form-group">
+											<select class="custom-select" id="inputtripType" name="tripType" style="background-color: rgba(245, 245, 245, 0.4);"  required>
+												<option selected>Trip type...</option>
+												<option value="one way">One way</option>
+												<option value="round trip">Round trip</option>
+											</select> -->
+										</div>
+										<!-- <a type="submit" class="btn btn-outline btn-xl js-scroll-trigger">SignUp</a> -->
+										<button class="btn btn-primary btn-xl rounded-pill mt-5" type="submit">Search</button>
+									</form>
+							</div>
+					</div>
+				</div>
+				<div class="col-lg-6"  style="overflow-y: scroll; height:440px; width: auto;">
+					<div class="card style_prevu_kit" style="background-color: rgba(245, 245, 245, 0.4);padding:30px;">
+						<div class="card-block">
+							<h3>Available Flights</h3>
+							<ul class="list-group" id="flight-list">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="bg-circle-1 bg-circle"></div>
+		<div class="bg-circle-2 bg-circle"></div>
+		<div class="bg-circle-3 bg-circle"></div>
+		<div class="bg-circle-4 bg-circle"></div>
+	</header>
+
+	<section>
+		<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 order-lg-2">
+			<div class="p-5">
+				
+			</div>
+			</div>
+			<div class="col-lg-6 order-lg-1">
+			<div class="p-5">
+				<h2 class="display-4">Our Flights!</h2>
+				<p>Flights Our extensive flight network makes travelling the world a breeze.</p> 
+				</p>Covering all corners of the globe, we can get you the right flight at the right price without the hassle.</p>
+			</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section id="services" class="features">
+		<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-4 order-lg-1">
+			<div class="feature-item">
+				<i class="fas fa-thumbs-up fa-3x"></i>
+				<h3>Secure Payment</h3>
+				<p>Convenient & reliable booking and payment system!</p>
+			</div>
+			</div>
+			<div class="col-lg-4 order-lg-1">
+				<div class="feature-item">
+				<i class="fas fa-file fa-3x"></i>
+				<h3>One-stop Service</h3>
+				<p>Price guaranteed upon confirmed payment, booking guaranteed once tickets issued!</p>
+				</div>
+			</div>
+			<div class="col-lg-4 order-lg-1">
+				<div class="feature-item">
+				<i class="fas fa-smile fa-3x"></i>
+				<h3>Travel at Your Fingertips</h3>
+				<p>Manage travel bookings easily through the app, website or by phone!</p>
+				</div>
+			</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer class="py-5" style="background-color: #133b33">
+		<div class="container">
+		<p class="m-0 text-center text-white small">Copyright &copy; Ludaya 2018 <a href="#">  Privacy policy</a> <i class="fab fa-facebook-f fa-2x"></i>  <i class="fab fa-twitter fa-2x"></i>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+{% endblock content %}
