@@ -27,7 +27,7 @@ class BookingApiCustomerListView(generics.ListAPIView):
 
 class BookingApiListView(generics.ListAPIView):
 
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = BookingModelSerializer
     
     def get_queryset(self, *args, **kwargs):
@@ -43,7 +43,7 @@ class BookingApiListView(generics.ListAPIView):
 class BookingAPICreateView(generics.CreateAPIView):
 
     serializer_class = BookingModelSerializer
-    # authentication_classes = (JSONWebTokenAuthentication, )
+    authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiDetailView(generics.RetrieveAPIView):

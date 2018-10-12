@@ -7,4 +7,5 @@ class PaymentModelForm(forms.ModelForm):
         model = Payment
         fields = [
             'booking',
+            'payment'
         ]

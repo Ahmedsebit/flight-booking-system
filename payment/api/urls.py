@@ -6,7 +6,7 @@ from .views import PaymentAPICreateView, PaymentApiCustomerListView, PaymentApiD
 urlpatterns = [
     url(r'^create$', PaymentAPICreateView.as_view(), name='payment_create'),
     path('', PaymentApiListView.as_view(), name='api_booking'),
-    path('customer/', PaymentApiCustomerListView.as_view(), name='api_payment_customer'),
+    url(r'^customer/$', PaymentApiCustomerListView.as_view(), name='api_payment_customer'),
     url(r'^(?P<pk>\d+)/$', PaymentApiDetailView.as_view(), name='api_payment_detail'),
     url(r'^(?P<pk>\d+)/delete$', PaymentApiDestroyView.as_view(), name='api_payment_destroy'),
     url(r'^(?P<pk>\d+)/update$', PaymentApiUpdateView.as_view(), name='api_payment_update'),

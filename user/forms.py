@@ -14,10 +14,16 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'email', 'name', 'birth_date', 'nationality', 'country_of_residence', 'travel_document_type', 'travel_document_number', 'phone', 'address', 'gender')
+        fields = ('username', 'email', 'name', 'birth_date', 'nationality', 'country_of_residence', 'travel_document_type', 'travel_document_number', 'phone', 'address', 'gender','image')
 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
         fields = UserChangeForm.Meta.fields
+
+
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    model = CustomUser
+    image = forms.ImageField()

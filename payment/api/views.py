@@ -43,15 +43,6 @@ class PaymentAPICreateView(generics.CreateAPIView):
 
     serializer_class = PaymentModelSerializer
     # authentication_classes = (JSONWebTokenAuthentication, )
-    
-    def create(self, validated_data):
-        print(validated_data)
-        payment, created = Payment.objects.get_or_create(
-            booking=validated_data('booking'),
-            defaults={'payment': validated_data('payment', None)})
-
-        return answer
-
 
 
 class PaymentApiDetailView(generics.RetrieveAPIView):

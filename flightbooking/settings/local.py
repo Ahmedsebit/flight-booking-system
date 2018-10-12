@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'seats',
     'bookings',
     'crispy_forms',
-    'payment'
+    'payment',
+    'kronos'
 ]
 
 MIDDLEWARE = [
@@ -137,6 +138,10 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static-serve")
+
+MEDIA_URL  = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

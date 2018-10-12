@@ -8,10 +8,12 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 
+ADDITIONAL_USER_FIELDS = (
+    (None, {'fields': ('name', 'birth_date', 'nationality', 'country_of_residence', 'travel_document_type', 'travel_document_number', 'phone', 'address', 'gender','image')}),
+)
+
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
-    list_display = ['email', 'username', 'name', 'birth_date', 'nationality', 'country_of_residence', 'travel_document_type', 'travel_document_number', 'phone', 'address', 'gender']
+    aadd_fieldsets = UserAdmin.add_fieldsets + ADDITIONAL_USER_FIELDS
+    fieldsets = UserAdmin.fieldsets + ADDITIONAL_USER_FIELDS
 
 admin.site.register(CustomUser, CustomUserAdmin)

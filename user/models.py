@@ -29,6 +29,7 @@ class CustomUser(AbstractUser):
     phone = models.CharField(max_length=30, blank=True)
     address = models.CharField(max_length=30, blank=True)
     gender = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
+    image = models.ImageField(upload_to='media', blank=True)
 
     def __str__(self):
         return self.email
