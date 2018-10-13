@@ -4,7 +4,7 @@ from django.db.models import Q
 from flight.models import Flight
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from .serializers import FlightModelSerializer
+from .serializers import FlightModelSerializer, FlightModelUpdateSerializer
 
 
 class FlightApiListView(generics.ListAPIView):
@@ -43,3 +43,17 @@ class FlightApiDetailView(generics.RetrieveAPIView):
 
     queryset = Flight.objects.all()
     serializer_class = FlightModelSerializer
+
+
+class FlightApiDestroyView(generics.DestroyAPIView):
+
+    queryset = Flight.objects.all()
+    serializer_class = FlightModelSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class FlightApiUpdateView(generics.UpdateAPIView):
+
+    queryset = Flight.objects.all()
+    serializer_class = FlightModelUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated]

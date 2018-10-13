@@ -12,11 +12,11 @@ from rest_framework.authtoken.models import Token
 
 class BookingApiCustomerListView(generics.ListAPIView):
 
-    authentication_classes = (JSONWebTokenAuthentication)
+    authentication_classes = (JSONWebTokenAuthentication, )
     serializer_class = BookingModelSerializer
 
     def get_queryset(self, *args, **kwargs):
-        qs = Booking.objects.filter(user__user=self.request.user)
+        qs = Booking.objects.filter(user__id=self.request.user.id)
         query = self.request.GET.get("q", None)
         if query is not None:
             qs = qs.filter(
