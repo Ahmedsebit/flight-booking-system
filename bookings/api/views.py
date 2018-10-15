@@ -50,7 +50,6 @@ class BookingApiDetailView(generics.RetrieveAPIView):
 
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
@@ -58,11 +57,11 @@ class BookingApiDestroyView(generics.DestroyAPIView):
 
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiUpdateView(generics.UpdateAPIView):
 
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = (JSONWebTokenAuthentication, )

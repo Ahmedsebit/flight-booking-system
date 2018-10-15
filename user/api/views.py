@@ -5,20 +5,18 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from django.contrib.auth.models import User
 
 from .serializers import UserDisplaySerializer, UserSerializer, UserUpdateSerializer
-
 from user.models import CustomUser
 
 
 class UserApiCreateView(generics.CreateAPIView):
     serializer_class = UserDisplaySerializer
     
+# class UserApiListView(generics.ListCreateAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSerializer
 
-class UserApiListView(generics.ListCreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
 
 class UserApiDetailListView(generics.ListAPIView):
-    # queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     def get_queryset(self, *args, **kwargs):
         qs = CustomUser.objects.filter(id=self.request.user.id)
@@ -29,19 +27,18 @@ class UserApiDetailListView(generics.ListAPIView):
                 )
         return qs
 
-class CustomUserApiDetailView(generics.RetrieveAPIView):
 
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = (JSONWebTokenAuthentication, )
+# class CustomUserApiDetailView(generics.RetrieveAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [permissions.IsAuthenticated]
+#     authentication_classes = (JSONWebTokenAuthentication, )
 
 
-class CustomUserApiDestroyView(generics.DestroyAPIView):
-
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+# class CustomUserApiDestroyView(generics.DestroyAPIView):
+#     queryset = CustomUser.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [permissions.IsAuthenticated]
 
 
 class CustomUserApiUpdateView(generics.UpdateAPIView):
