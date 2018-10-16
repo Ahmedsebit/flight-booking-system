@@ -46,6 +46,10 @@ $ python manage.py db init
 $ python manage.py db migrate
 $ python manage.py db upgrade
 
+# Create Super User
+
+$ python manage.py createsuperuser
+
 # Runserver and add the endpoints to postman
 
 $ python manage.py runserver
