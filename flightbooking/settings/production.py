@@ -104,10 +104,10 @@ WSGI_APPLICATION = 'flightbooking.wsgi.application'
 # }
 
 # SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default=config('postgres://lmbutpgyxlbgwo:39083bf70ef9ce3be77c0ae94b638cf8bf2a4e7af6e8daf0f2da98bb9ac32cdc@ec2-184-72-234-230.compute-1.amazonaws.com:5432/d8pf50mav32qo1')
     )
 }
 
