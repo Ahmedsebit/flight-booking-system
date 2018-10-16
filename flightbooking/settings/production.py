@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'payment',
     'kronos',
-    'django_nose'
+    'django_nose',
+    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
 ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
