@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'c$660wawc0w1zap04vdfc*&t0mc6qh393b!#^z4^p(_k(ho@9g'
+SECRET_KEY = 'c$660wawc0w1zap04vdfc*&t0mc6qh393b!#^z4^p(_k(ho@9g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -65,7 +65,6 @@ NOSE_ARGS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
