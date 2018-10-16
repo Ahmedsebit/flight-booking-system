@@ -83,4 +83,4 @@ $ python manage.py runserver
 
 # Running the tests
 
- $ nosetests
+ $ python manage.py test
