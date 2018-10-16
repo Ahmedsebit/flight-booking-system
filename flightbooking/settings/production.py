@@ -118,7 +118,7 @@ DATABASES = {
         'Host':'ec2-184-72-234-230.compute-1.amazonaws.com',
         'Database':'d8pf50mav32qo1',
         'User':'lmbutpgyxlbgwo',
-        'Port':'5432''
+        'Port':'5432',
         'Password':'39083bf70ef9ce3be77c0ae94b638cf8bf2a4e7af6e8daf0f2da98bb9ac32cdc',
         'URI':'postgres://lmbutpgyxlbgwo:39083bf70ef9ce3be77c0ae94b638cf8bf2a4e7af6e8daf0f2da98bb9ac32cdc@ec2-184-72-234-230.compute-1.amazonaws.com:5432/d8pf50mav32qo1',
         'Heroku':'CLI heroku pg:psql postgresql-concentric-11054 --app demo-flightbooking'
