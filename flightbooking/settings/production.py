@@ -182,6 +182,8 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "static-serve")
 
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
 MEDIA_URL  = '/media/'
 
 REST_FRAMEWORK = {
