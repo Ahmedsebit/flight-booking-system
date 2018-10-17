@@ -66,7 +66,19 @@ $ python manage.py runserver
 | `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
 | `/api/flight/<flight_id>/update`           |`PUT`   | Update Booking Details  |
 | `/api/flight/<flight_id>/delete`           |`DELETE`| DELETE booking          |
-
+| `/api/seat/create/`                        |`POST`  | Create Flight           |
+| `/api/seat/`                               |`GET`   | GET APp flights         |
+| `/api/seat/<seat_id>/`                     |`GET`   | GET Flight Detail       |
+| `/api/seat/<seat/update`                   |`PUT`   | Update Booking Details  |
+| `/api/seat/<seat/delete`                   |`DELETE`| DELETE booking          |
+| `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
+| `/api/bookings/customer/create/`           |`POST`  | Create Booking          |
+| `/api/bookings/<booking_id>/`              |`GET`   | GET booking Details     |
+| `/api/bookings/<booking_id>/update`        |`PUT`   | Update Booking Details  |
+| `/api/bookings/<booking_id>/`              |`DELETE`| DELETE booking          |
+| `/api/payments/`                           |`GET`   | GET All payments        |
+| `/api/payment/customer/`                   |`GET`   | Get customet payment    |
+| `/api/payment/<booking_id>/`               |`GET`   | GET payment Details     |
 
 # Running the tests
 
