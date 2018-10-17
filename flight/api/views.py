@@ -36,7 +36,7 @@ class FlightApiListView(generics.ListAPIView):
 class FlightAPICreateView(generics.CreateAPIView):
 
     serializer_class = FlightModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsStaff]
 
 
 class FlightApiDetailView(generics.RetrieveAPIView):
@@ -49,11 +49,11 @@ class FlightApiDestroyView(generics.DestroyAPIView):
 
     queryset = Flight.objects.all()
     serializer_class = FlightModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsStaff]
 
 
 class FlightApiUpdateView(generics.UpdateAPIView):
 
     queryset = Flight.objects.all()
     serializer_class = FlightModelUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsStaff]
