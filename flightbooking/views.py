@@ -2,6 +2,8 @@ import urllib.request
 import random
 import os
 import re
+import time
+import threading
 
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -38,25 +40,39 @@ def profile(request):
     context = {'user':user, 'request_user':request_user}
     return render(request, "profile.html", context)
 
+
+def save_image(form, request):
+    user = CustomUser.objects.get(id=request.user.id)
+    user.image = form.cleaned_data["image"]
+    print(form.cleaned_data["image"])
+    user.save()
+
 def SaveProfile(request):
-   saved = False
-   user = CustomUser.objects.get(id=request.user.id)
-   request_user = request.user
-   context = {'user':user, 'request_user':request_user}
-   if request.method == "POST":
-      #Get the posted form
-      form = ImageUploadForm(request.POST, request.FILES)
-      
-      if form.is_valid():
-         user = CustomUser.objects.get(id=request.user.id)
-         user.image = form.cleaned_data["image"]
-         print(user.username)
-         user .save()
-         saved = True
-   else:
-      MyProfileForm = CustomUserCreationForm()
+    saved = False
+    user = CustomUser.objects.get(id=request.user.id)
+    request_user = request.user
+    context = {'user':user, 'request_user':request_user}
+    if request.method == "POST":
+        #Get the posted form
+        form = ImageUploadForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            # user = CustomUser.objects.get(id=request.user.id)
+            # user.image = form.cleaned_data["image"]
+            # print(user.username)
+            # user .save()
+            # try:
+            t = threading.Thread(target=save_image, args=[form, request])
+            t.daemon = True
+            t.start()
+            # except:
+            #     raise("Error: unable to start thread")
+            saved = True
+    else:
+        MyProfileForm = CustomUserCreationForm()
+        time.sleep(0.5)
 		
-   return render(request, 'profile.html', context)
+    return render(request, 'profile.html', context)
 
 
 def download_image(request):
@@ -66,7 +82,6 @@ def download_image(request):
     context = {'user':user, 'request_user':request_user}
     baseurl = request.build_absolute_uri()[:-10]
     url = baseurl + user.image.url
-
     dir = os.path.join('usr', 'test.html')
     file_name = random.randrange(1,10000)
     full_file_name = str(file_name) + '.jpg'
@@ -80,25 +95,31 @@ def regular_expresion(request):
     user = CustomUser.objects.get(id=request.user.id)
     lst = []
     if request.POST:
-        myfile = request.FILES['regular_expression'].read()
-        phrase = myfile.decode("utf-8")
-        if request.POST.get('type') == 'search':
-            phrases = re.findall('\w+', phrase)
-            for phrase in phrases:
-                matches = re.search(r''+request.POST.get('text'), phrase)
-                if matches is not None:
-                    lst.append(matches.group())
-        elif request.POST.get('type') == 'match':
-            phrases = re.findall('\w+', phrase)
-            for phrase in phrases:
-                matches = re.match(r''+request.POST.get('text'), phrase)
-                if matches is not None:
-                    lst.append(matches.group())
-        elif request.POST.get('type') == 'findall':
-            matches = re.findall(request.POST.get('text'), phrase)
-        elif request.POST.get('type') == "split":
-                matches = re.split(request.POST.get('text'), phrase)
-        obj = {"test":lst}
+        try:
+            if request.FILES['regular_expression'].name.split('.')[-1] != "txt":
+                context = {'obj':'Invalid text File'}
+                return render(request, "regular_expresion.html", context)
+            myfile = request.FILES['regular_expression'].read()
+            phrase = myfile.decode("utf-8")
+            if request.POST.get('type') == 'search':
+                phrases = re.findall('\w+', phrase)
+                for phrase in phrases:
+                    matches = re.search(r''+request.POST.get('text'), phrase)
+                    if matches is not None:
+                        lst.append(matches.group())
+            elif request.POST.get('type') == 'match':
+                phrases = re.findall('\w+', phrase)
+                for phrase in phrases:
+                    matches = re.match(r''+request.POST.get('text'), phrase)
+                    if matches is not None:
+                        lst.append(matches.group())
+            elif request.POST.get('type') == 'findall':
+                matches = re.findall(request.POST.get('text'), phrase)
+            elif request.POST.get('type') == "split":
+                    matches = re.split(request.POST.get('text'), phrase)
+            obj = {"test":lst}
+        except:
+            raise("Invalid file type")
     else:
         obj={"test":"no date"}
 

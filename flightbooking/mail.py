@@ -27,7 +27,7 @@ def email_notification():
     for booking in bookings:
         dt = booking.flight.dapart - timezone.now()
         days_remaining = dt.days
-        if booking.flight.dapart > timezone.now() and days_remaining < 1:
+        if booking.flight.dapart > timezone.now() and days_remaining <= 1:
             message = "This is a reminder for you flight: {}. Departure is on on {} at {}. Enjoy your flight, Fair Airlines.".format(booking.flight.name,booking.flight.dapart.isoformat(' ', 'seconds')[:10], booking.flight.dapart.isoformat(' ', 'seconds')[11:19])
             print(message)
             send_email(booking.user.email, subject, message)

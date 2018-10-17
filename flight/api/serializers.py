@@ -17,3 +17,17 @@ class FlightModelSerializer(serializers.ModelSerializer):
             'arrive',
             'price'
         ]
+
+class FlightModelUpdateSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Flight
+        fields = [
+            'location',
+            'destination',
+            'status',
+            'dapart',
+            'arrive',
+            'price'
+        ]

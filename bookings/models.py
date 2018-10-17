@@ -18,14 +18,6 @@ class Booking(models.Model):
     class Meta:
         unique_together = (('user','flight'),('seat','flight'))
 
-    def clean(self):
-        if self.flight.dapart <= timezone.now():
-            raise ValidationError('This flight is unavailable')
-
-    def clean(self):
-        if self.flight.STATUS_CHOICES[2][0] == 'Canceled':
-            raise ValidationError('This flight has been canceled')
-
     def __str__ (self):
         return str(self.ref)
 
