@@ -173,7 +173,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static-serve/'
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
