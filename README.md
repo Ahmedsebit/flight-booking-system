@@ -66,11 +66,10 @@ $ python manage.py runserver
 | `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
 | `/api/flight/<flight_id>/update`           |`PUT`   | Update Booking Details  |
 | `/api/flight/<flight_id>/delete`           |`DELETE`| DELETE booking          |
-| `/api/seat/create/`                        |`POST`  | Create Flight           |
-| `/api/seat/`                               |`GET`   | GET APp flights         |
-| `/api/seat/<seat_id>/`                     |`GET`   | GET Flight Detail       |
-| `/api/seat/<seat/update`                   |`PUT`   | Update Booking Details  |
-| `/api/seat/<seat/delete`                   |`DELETE`| DELETE booking          |
+| `/api/seats/create/`                        |`POST`  | Create Flight           |
+| `/api/seats/`                               |`GET`   | GET APp flights         |
+| `/api/seats/<seat/update`                   |`PUT`   | Update Booking Details  |
+| `/api/seats/<seat/delete`                   |`DELETE`| DELETE booking          |
 | `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
 | `/api/bookings/create`                     |`POST`  | Create Booking          |
 | `/api/bookings/<booking_id>/`              |`GET`   | GET booking Details     |
