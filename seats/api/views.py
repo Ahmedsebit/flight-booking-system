@@ -11,9 +11,11 @@ from seats.models import Seat
 class SeatApiCreateView(generics.CreateAPIView):
     serializer_class = SeatModelSerializer
 
-
 class SeatApiListView(generics.ListAPIView):
     serializer_class = SeatModelSerializer
+    authentication_classes = (JSONWebTokenAuthentication, )
+
+    authentication_classes = (JSONWebTokenAuthentication, )
     def get_queryset(self, *args, **kwargs):
         qs = Seat.objects.all()
         query = self.request.GET.get("q", None)
@@ -26,17 +28,16 @@ class SeatApiListView(generics.ListAPIView):
 class SeatApiDetailView(generics.RetrieveAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class SeatApiDestroyView(generics.DestroyAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class SeatApiUpdateView(generics.UpdateAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = (JSONWebTokenAuthentication, )

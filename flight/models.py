@@ -17,9 +17,9 @@ class Flight(models.Model):
         (NOT_CONFIRMED, 'Not confirmed'),
         (CANCELED, 'Canceled'),
     )
-    name = models.CharField(max_length=140, unique=True)
-    location = models.CharField(max_length=140)
-    destination = models.CharField(max_length=140)
+    name = models.CharField(max_length=10, unique=True)
+    location = models.CharField(max_length=10)
+    destination = models.CharField(max_length=10)
     status =  models.PositiveSmallIntegerField(choices=STATUS_CHOICES, null=False, blank=True, default=1)
     dapart = models.DateTimeField(null=False)
     arrive = models.DateTimeField(null=False)

@@ -50,7 +50,15 @@ INSTALLED_APPS = [
     'bookings',
     'crispy_forms',
     'payment',
-    'kronos'
+    'kronos',
+    'django_nose'
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=user,flight,seats,payment,bookings'
 ]
 
 MIDDLEWARE = [
@@ -136,6 +144,7 @@ STATIC_URL = '/static/'
 MEDIA_URL  = '/media/'
 
 REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
