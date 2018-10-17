@@ -24,7 +24,7 @@ def index(request):
     if request.user.is_authenticated:
         return render(request, "index.html", {})
     else:
-        return render(request, "home.html", context)
+        return render(request, "home.html", {})
 
 def book(request, pk):
     if request.user.is_authenticated:
@@ -38,7 +38,7 @@ def book(request, pk):
         context = {'user':user,'flight': flight,'seats':seats,'booked_seats':booked_seats}
         return render(request, "book.html", context)
     else:
-        return render(request, "home.html", context)
+        return render(request, "home.html", {})
 
 def profile(request):
     if request.user.is_authenticated:
@@ -47,7 +47,7 @@ def profile(request):
         context = {'user':user, 'request_user':request_user}
         return render(request, "profile.html", context)
     else:
-        return render(request, "home.html", context)
+        return render(request, "home.html", {})
 
 
 def save_image(form, request):
@@ -86,7 +86,7 @@ def SaveProfile(request):
             
         return render(request, 'profile.html', context)
     else:
-        return render(request, "home.html", context)
+        return render(request, "home.html", {})
 
 
 def download_image(request):
@@ -142,4 +142,4 @@ def regular_expresion(request):
 
         return render(request, "regular_expresion.html", context)
     else:
-        return render(request, "home.html", context)
+        return render(request, "home.html", {})
