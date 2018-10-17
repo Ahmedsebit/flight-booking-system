@@ -21,13 +21,13 @@ def home(request):
     return render(request, "home.html", {})
 
 def index(request):
-    if request.user:
+    if request.user.is_authenticated:
         return render(request, "index.html", {})
     else:
         return render(request, "home.html", context)
 
 def book(request, pk):
-    if request.user:
+    if request.user.is_authenticated:
         flight = Flight.objects.get(id=pk)
         seats = Seat.objects.all()
         bookings = Booking.objects.filter(flight__id=flight.id)
@@ -41,7 +41,7 @@ def book(request, pk):
         return render(request, "home.html", context)
 
 def profile(request):
-    if request.user:
+    if request.user.is_authenticated:
         user = CustomUser.objects.get(id=request.user.id)
         request_user = request.user
         context = {'user':user, 'request_user':request_user}
@@ -58,7 +58,7 @@ def save_image(form, request):
 
 def SaveProfile(request):
 
-    if request.user:
+    if request.user.is_authenticated:
         saved = False
         user = CustomUser.objects.get(id=request.user.id)
         request_user = request.user
@@ -106,7 +106,7 @@ def download_image(request):
 
 
 def regular_expresion(request):
-    if request.user:
+    if request.user.is_authenticated:
         user = CustomUser.objects.get(id=request.user.id)
         lst = []
         if request.POST:
