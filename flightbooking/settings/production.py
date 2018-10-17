@@ -113,7 +113,7 @@ WSGI_APPLICATION = 'flightbooking.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'Host':'ec2-184-72-234-230.compute-1.amazonaws.com',
         'Database':'d8pf50mav32qo1',
         'User':'lmbutpgyxlbgwo',
