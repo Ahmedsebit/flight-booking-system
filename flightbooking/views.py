@@ -62,9 +62,10 @@ def SaveProfile(request):
             # print(user.username)
             # user .save()
             # try:
-            t = threading.Thread(target=save_image, args=[form, request])
-            t.daemon = True
-            t.start()
+            # t = threading.Thread(target=save_image, args=[form, request])
+            # t.daemon = True
+            # t.start()
+            save_image(form, request)
             # except:
             #     raise("Error: unable to start thread")
             saved = True
