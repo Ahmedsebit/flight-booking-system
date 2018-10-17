@@ -6,7 +6,7 @@ from .views import BookingApiListView, BookingAPICreateView, BookingApiDetailVie
 urlpatterns = [
     path('', BookingApiListView.as_view(), name='api_booking'),
     path('customer/', BookingApiCustomerListView.as_view(), name='api_booking_customer'),
-    url(r'^(?P<pk>\d+)/create$', BookingAPICreateView.as_view(), name='api_booking_create'),
+    url(r'^create$', BookingAPICreateView.as_view(), name='api_booking_create'),
     url(r'^(?P<pk>\d+)/$', BookingApiDetailView.as_view(), name='api_booking_detail'),
     url(r'^(?P<pk>\d+)/delete$', BookingApiDestroyView.as_view(), name='api_booking_destroy'),
     url(r'^(?P<pk>\d+)/update$', BookingApiUpdateView.as_view(), name='api_booking_update'),

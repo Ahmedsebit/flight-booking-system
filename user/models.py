@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -20,14 +18,14 @@ class CustomUser(AbstractUser):
         (NATIONAL_ID, 'National ID'),
     )
 
-    name = models.CharField(blank=True, max_length=255)
+    name = models.CharField(blank=True, max_length=20)
     birth_date = models.DateField(null=True, blank=True)
-    nationality = models.CharField(max_length=30, blank=True)
-    country_of_residence = models.CharField(max_length=30, blank=True)
+    nationality = models.CharField(max_length=10, blank=True)
+    country_of_residence = models.CharField(max_length=10, blank=True)
     travel_document_type = models.PositiveSmallIntegerField(choices=ROLE_DOCUMENT, null=True, blank=True)
-    travel_document_number = models.CharField(max_length=30, blank=True)
-    phone = models.CharField(max_length=30, blank=True)
-    address = models.CharField(max_length=30, blank=True)
+    travel_document_number = models.CharField(max_length=10, blank=True)
+    phone = models.CharField(max_length=10, blank=True)
+    address = models.CharField(max_length=20, blank=True)
     gender = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
     image = models.ImageField(upload_to='media', blank=True)
 
