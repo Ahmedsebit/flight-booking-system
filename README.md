@@ -72,14 +72,14 @@ $ python manage.py runserver
 | `/api/seat/<seat/update`                   |`PUT`   | Update Booking Details  |
 | `/api/seat/<seat/delete`                   |`DELETE`| DELETE booking          |
 | `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
-| `/api/bookings/customer/create/`           |`POST`  | Create Booking          |
+| `/api/bookings/create`                     |`POST`  | Create Booking          |
 | `/api/bookings/<booking_id>/`              |`GET`   | GET booking Details     |
 | `/api/bookings/<booking_id>/update`        |`PUT`   | Update Booking Details  |
-| `/api/bookings/<booking_id>/`              |`DELETE`| DELETE booking          |
+| `/api/bookings/<booking_id>/delete`        |`DELETE`| DELETE booking          |
 | `/api/payments/`                           |`GET`   | GET All payments        |
 | `/api/payment/customer/`                   |`GET`   | Get customet payment    |
 | `/api/payment/<booking_id>/`               |`GET`   | GET payment Details     |
-
+| `/api/payment/create`                      |`POST`  | Create Payment          |
 
 # Running the tests
 
