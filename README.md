@@ -20,7 +20,6 @@ The flight booking system should be able to:
 ## Requirements
 
 Python 3.6
-postgresql9.6
 postman
 pip
 virtualenv
