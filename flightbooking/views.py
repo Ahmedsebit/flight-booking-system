@@ -21,24 +21,33 @@ def home(request):
     return render(request, "home.html", {})
 
 def index(request):
-    return render(request, "index.html", {})
+    if request.user.is_authenticated:
+        return render(request, "index.html", {})
+    else:
+        return render(request, "home.html", {})
 
 def book(request, pk):
-    flight = Flight.objects.get(id=pk)
-    seats = Seat.objects.all()
-    bookings = Booking.objects.filter(flight__id=flight.id)
-    user = CustomerAccount.objects.get(id=request.user.id)
-    booked_seats = []
-    for booking in bookings:
-        booked_seats.append(booking.seat)
-    context = {'user':user,'flight': flight,'seats':seats,'booked_seats':booked_seats}
-    return render(request, "book.html", context)
+    if request.user.is_authenticated:
+        flight = Flight.objects.get(id=pk)
+        seats = Seat.objects.all()
+        bookings = Booking.objects.filter(flight__id=flight.id)
+        user = CustomerAccount.objects.get(id=request.user.id)
+        booked_seats = []
+        for booking in bookings:
+            booked_seats.append(booking.seat)
+        context = {'user':user,'flight': flight,'seats':seats,'booked_seats':booked_seats}
+        return render(request, "book.html", context)
+    else:
+        return render(request, "home.html", {})
 
 def profile(request):
-    user = CustomUser.objects.get(id=request.user.id)
-    request_user = request.user
-    context = {'user':user, 'request_user':request_user}
-    return render(request, "profile.html", context)
+    if request.user.is_authenticated:
+        user = CustomUser.objects.get(id=request.user.id)
+        request_user = request.user
+        context = {'user':user, 'request_user':request_user}
+        return render(request, "profile.html", context)
+    else:
+        return render(request, "home.html", {})
 
 
 def save_image(form, request):
@@ -48,31 +57,36 @@ def save_image(form, request):
     user.save()
 
 def SaveProfile(request):
-    saved = False
-    user = CustomUser.objects.get(id=request.user.id)
-    request_user = request.user
-    context = {'user':user, 'request_user':request_user}
-    if request.method == "POST":
-        #Get the posted form
-        form = ImageUploadForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            # user = CustomUser.objects.get(id=request.user.id)
-            # user.image = form.cleaned_data["image"]
-            # print(user.username)
-            # user .save()
-            # try:
-            t = threading.Thread(target=save_image, args=[form, request])
-            t.daemon = True
-            t.start()
-            # except:
-            #     raise("Error: unable to start thread")
-            saved = True
+
+    if request.user.is_authenticated:
+        saved = False
+        user = CustomUser.objects.get(id=request.user.id)
+        request_user = request.user
+        context = {'user':user, 'request_user':request_user}
+        if request.method == "POST":
+            #Get the posted form
+            form = ImageUploadForm(request.POST, request.FILES)
+            
+            if form.is_valid():
+                # user = CustomUser.objects.get(id=request.user.id)
+                # user.image = form.cleaned_data["image"]
+                # print(user.username)
+                # user .save()
+                # try:
+                # t = threading.Thread(target=save_image, args=[form, request])
+                # t.daemon = True
+                # t.start()
+                save_image(form, request)
+                # except:
+                #     raise("Error: unable to start thread")
+                saved = True
+        else:
+            MyProfileForm = CustomUserCreationForm()
+            time.sleep(0.5)
+            
+        return render(request, 'profile.html', context)
     else:
-        MyProfileForm = CustomUserCreationForm()
-        time.sleep(0.5)
-		
-    return render(request, 'profile.html', context)
+        return render(request, "home.html", {})
 
 
 def download_image(request):
@@ -92,37 +106,40 @@ def download_image(request):
 
 
 def regular_expresion(request):
-    user = CustomUser.objects.get(id=request.user.id)
-    lst = []
-    if request.POST:
-        try:
-            if request.FILES['regular_expression'].name.split('.')[-1] != "txt":
-                context = {'obj':'Invalid text File'}
-                return render(request, "regular_expresion.html", context)
-            myfile = request.FILES['regular_expression'].read()
-            phrase = myfile.decode("utf-8")
-            if request.POST.get('type') == 'search':
-                phrases = re.findall('\w+', phrase)
-                for phrase in phrases:
-                    matches = re.search(r''+request.POST.get('text'), phrase)
-                    if matches is not None:
-                        lst.append(matches.group())
-            elif request.POST.get('type') == 'match':
-                phrases = re.findall('\w+', phrase)
-                for phrase in phrases:
-                    matches = re.match(r''+request.POST.get('text'), phrase)
-                    if matches is not None:
-                        lst.append(matches.group())
-            elif request.POST.get('type') == 'findall':
-                matches = re.findall(request.POST.get('text'), phrase)
-            elif request.POST.get('type') == "split":
-                    matches = re.split(request.POST.get('text'), phrase)
-            obj = {"test":lst}
-        except:
-            raise("Invalid file type")
+    if request.user.is_authenticated:
+        user = CustomUser.objects.get(id=request.user.id)
+        lst = []
+        if request.POST:
+            try:
+                if request.FILES['regular_expression'].name.split('.')[-1] != "txt":
+                    context = {'obj':'Invalid text File'}
+                    return render(request, "regular_expresion.html", context)
+                myfile = request.FILES['regular_expression'].read()
+                phrase = myfile.decode("utf-8")
+                if request.POST.get('type') == 'search':
+                    phrases = re.findall('\w+', phrase)
+                    for phrase in phrases:
+                        matches = re.search(r''+request.POST.get('text'), phrase)
+                        if matches is not None:
+                            lst.append(matches.group())
+                elif request.POST.get('type') == 'match':
+                    phrases = re.findall('\w+', phrase)
+                    for phrase in phrases:
+                        matches = re.match(r''+request.POST.get('text'), phrase)
+                        if matches is not None:
+                            lst.append(matches.group())
+                elif request.POST.get('type') == 'findall':
+                    matches = re.findall(request.POST.get('text'), phrase)
+                elif request.POST.get('type') == "split":
+                        matches = re.split(request.POST.get('text'), phrase)
+                obj = {"test":lst}
+            except:
+                raise("Invalid file type")
+        else:
+            obj={"test":"no date"}
+
+        context = {'obj':obj}
+
+        return render(request, "regular_expresion.html", context)
     else:
-        obj={"test":"no date"}
-
-    context = {'obj':obj}
-
-    return render(request, "regular_expresion.html", context)
+        return render(request, "home.html", {})

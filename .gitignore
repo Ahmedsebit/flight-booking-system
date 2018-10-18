@@ -1,8 +1,8 @@
-project/doctor_referral/__pycache__/*
-project/doctor_referral/migrations/*
+# project/doctor_referral/__pycache__/*
+# project/doctor_referral/migrations/*
 *.__pycache__
 
 *.pyc
 db.sqlite3
 local_settings.py
-migrations
+# migrations
