@@ -18,6 +18,10 @@ The flight booking system should be able to:
 * optimize via caching and multithreading
 
 ## Requirements
+* Python 3.6
+* postman
+* pip
+* virtualenv
 
 
 # Installation
