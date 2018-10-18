@@ -26,7 +26,7 @@ class PaymentApiCustomerListView(generics.ListAPIView):
 
 class PaymentApiListView(generics.ListAPIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
     serializer_class = PaymentModelSerializer
     
     def get_queryset(self, *args, **kwargs):
@@ -56,11 +56,11 @@ class PaymentApiDestroyView(generics.DestroyAPIView):
 
     queryset = Payment.objects.all()
     serializer_class = PaymentModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class PaymentApiUpdateView(generics.UpdateAPIView):
 
     queryset = Payment.objects.all()
     serializer_class = PaymentModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]

@@ -14,7 +14,7 @@ if __name__ == '__main__':
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
-        ) from exc
+        )
     if is_testing:
             import coverage
             cov = coverage.coverage(source=['seats', 'flight', 'user', 'bookings','payment'], omit=['*tests.py','*migrations/*', '*urls.py', '*apps.py', '*forms.py', '*views.py*','*serializers.py*'])

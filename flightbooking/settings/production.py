@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = 'c$660wawc0w1zap04vdfc*&t0mc6qh393b!#^z4^p(_k(ho@9g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-ALLOWED_HOSTS = []
+DEBUG = True
 
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'payment',
     'kronos',
-    'django_nose'
+    'django_nose',
+    'whitenoise.runserver_nostatic',
 ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -95,12 +96,40 @@ WSGI_APPLICATION = 'flightbooking.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# SECRET_KEY = config('SECRET_KEY')
+# DEBUG = config('DEBUG', default=False, cast=bool)
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('postgres://lmbutpgyxlbgwo:39083bf70ef9ce3be77c0ae94b638cf8bf2a4e7af6e8daf0f2da98bb9ac32cdc@ec2-184-72-234-230.compute-1.amazonaws.com:5432/d8pf50mav32qo1')
+#     )
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST':'ec2-184-72-234-230.compute-1.amazonaws.com',
+        'NAME':'d8pf50mav32qo1',
+        'USER':'lmbutpgyxlbgwo',
+        'PORT':'5432',
+        'PASSWORD':'39083bf70ef9ce3be77c0ae94b638cf8bf2a4e7af6e8daf0f2da98bb9ac32cdc',
     }
 }
+
+# ...
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
+
+DATABASES['default'] = dj_database_url.config(
+    default='postgres://lmbutpgyxlbgwo:39083bf70ef9ce3be77c0ae94b638cf8bf2a4e7af6e8daf0f2da98bb9ac32cdc@ec2-184-72-234-230.compute-1.amazonaws.com:5432/d8pf50mav32qo1'
+)
 
 
 # Password validation
@@ -138,8 +167,22 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static-storage'),
+# )
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "static-serve")
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-serve')
 
 MEDIA_URL  = '/media/'
 
@@ -163,3 +206,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 SITE_ID=1
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+

@@ -10,6 +10,7 @@ from seats.models import Seat
 
 class SeatApiCreateView(generics.CreateAPIView):
     serializer_class = SeatModelSerializer
+    permission_classes = [permissions.IsAdminUser]
 
 class SeatApiListView(generics.ListAPIView):
     serializer_class = SeatModelSerializer
@@ -28,16 +29,16 @@ class SeatApiListView(generics.ListAPIView):
 class SeatApiDetailView(generics.RetrieveAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatModelSerializer
-    authentication_classes = (JSONWebTokenAuthentication, )
+    permission_classes = [permissions.IsAdminUser]
 
 
 class SeatApiDestroyView(generics.DestroyAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatModelSerializer
-    authentication_classes = (JSONWebTokenAuthentication, )
+    permission_classes = [permissions.IsAdminUser]
 
 
 class SeatApiUpdateView(generics.UpdateAPIView):
     queryset = Seat.objects.all()
     serializer_class = SeatModelSerializer
-    authentication_classes = (JSONWebTokenAuthentication, )
+    permission_classes = [permissions.IsAdminUser]
