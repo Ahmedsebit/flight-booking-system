@@ -19,13 +19,10 @@ The flight booking system should be able to:
 
 ## Requirements
 
-Python 3.6
-
-postman
-
-pip
-
-virtualenv
+* Python 3.6
+* postman
+* pip
+* virtualenv
 
 # Installation
 ### 1)Clone the repo from GitHub:
