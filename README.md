@@ -26,20 +26,28 @@ pip
 virtualenv
 
 # Installation
-1)Clone the repo from GitHub:
+### 1)Clone the repo from GitHub:
 $ git clone https://github.com/Ahmedsebit/flight-booking-system.git
-2) Create a virtual environment and install the necessary packages with:
+
+### 2) Create a virtual environment and install the necessary packages with:
 $ virtualenv -p python3 env
-3) Activate virtual environment 
+
+### 3) Activate virtual environment:
 $ source env/bin/activate
-4) cd to the root of the api -- 
+
+### 4) cd to the root of the api:
 $ cd flight-booking-system
-5) Install requirements
+
+### 5) Install requirements:
 $ pip install -r requirements.txt
-6) Make migrations
+
+### 6) Make migrations:
 $ python manage.py makemigrations
+
 $ python manage.py migrate
-8)Create Super User
+
+### 8)Create Super User
+
 $ python manage.py createsuperuser
 
 # Runserver
