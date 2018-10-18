@@ -26,20 +26,28 @@ pip
 virtualenv
 
 # Installation
-1)Clone the repo from GitHub:
+### 1)Clone the repo from GitHub:
 $ git clone https://github.com/Ahmedsebit/flight-booking-system.git
-2) Create a virtual environment and install the necessary packages with:
+
+### 2) Create a virtual environment and install the necessary packages with:
 $ virtualenv -p python3 env
-3) Activate virtual environment 
+
+### 3) Activate virtual environment:
 $ source env/bin/activate
-4) cd to the root of the api -- 
+
+### 4) cd to the root of the api:
 $ cd flight-booking-system
-5) Install requirements
+
+### 5) Install requirements:
 $ pip install -r requirements.txt
-6) Make migrations
+
+### 6) Make migrations:
 $ python manage.py makemigrations
+
 $ python manage.py migrate
-8)Create Super User
+
+### 8)Create Super User
+
 $ python manage.py createsuperuser
 
 # Runserver
@@ -57,6 +65,19 @@ $ python manage.py runserver
 | `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
 | `/api/flight/<flight_id>/update`           |`PUT`   | Update Booking Details  |
 | `/api/flight/<flight_id>/delete`           |`DELETE`| DELETE booking          |
+| `/api/seat/create/`                        |`POST`  | Create Flight           |
+| `/api/seat/`                               |`GET`   | GET APp flights         |
+| `/api/seat/<seat_id>/`                     |`GET`   | GET Flight Detail       |
+| `/api/seat/<seat/update`                   |`PUT`   | Update Booking Details  |
+| `/api/seat/<seat/delete`                   |`DELETE`| DELETE booking          |
+| `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
+| `/api/bookings/customer/create/`           |`POST`  | Create Booking          |
+| `/api/bookings/<booking_id>/`              |`GET`   | GET booking Details     |
+| `/api/bookings/<booking_id>/update`        |`PUT`   | Update Booking Details  |
+| `/api/bookings/<booking_id>/`              |`DELETE`| DELETE booking          |
+| `/api/payments/`                           |`GET`   | GET All payments        |
+| `/api/payment/customer/`                   |`GET`   | Get customet payment    |
+| `/api/payment/<booking_id>/`               |`GET`   | GET payment Details     |
 
 
 # Running the tests
