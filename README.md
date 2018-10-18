@@ -23,7 +23,6 @@ The flight booking system should be able to:
 * pip
 * virtualenv
 
-
 # Installation
 ### 1)Clone the repo from GitHub:
 $ git clone https://github.com/Ahmedsebit/flight-booking-system.git
