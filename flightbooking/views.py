@@ -130,8 +130,10 @@ def regular_expresion(request):
                             lst.append(matches.group())
                 elif request.POST.get('type') == 'findall':
                     matches = re.findall(request.POST.get('text'), phrase)
+                    lst.append(matches)
                 elif request.POST.get('type') == "split":
-                        matches = re.split(request.POST.get('text'), phrase)
+                    matches = re.split(request.POST.get('text'), phrase)
+                    lst.append(matches)
                 obj = {"test":lst}
             except:
                 raise("Invalid file type")
