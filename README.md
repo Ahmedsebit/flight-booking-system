@@ -51,21 +51,25 @@ $ python manage.py createsuperuser
 # Runserver
 $ python manage.py runserver
 
-# Endpoints
-| Endpoints                                  | Request| command                 |
+# Users
+Users include staff(superusers) and Normal Users
+# Staff (superuser)
+#### Are created using the command
+$ python manage.py createsuperusers
+#### Functions the supers users can do
+| Funcion                                 | Request| command                 |
 | ------------------------------------------ | -------| ------------------------|
-| `/api/rest-auth/registration/`             |`POST`  | Register a new user     |
 | `/api-token-auth/`                         |`POST`  | Login and retrieve token|
 | `/api/account/`                            |`POST`  | Get User Account        |
 | `/api/account/<user_id>/update/`           |`PUT`   | UPDATE User Account     |
 | `/api/flight/create/`                      |`POST`  | Create Flight           |
-| `/api/flight/`                             |`GET`   | GET APp flights         |
+| `/api/flight/`                             |`GET`   | GET All flights         |
 | `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
 | `/api/flight/<flight_id>/update`           |`PUT`   | Update Booking Details  |
 | `/api/flight/<flight_id>/delete`           |`DELETE`| DELETE booking          |
-| `/api/seat/create/`                        |`POST`  | Create Flight           |
-| `/api/seat/`                               |`GET`   | GET APp flights         |
-| `/api/seat/<seat_id>/`                     |`GET`   | GET Flight Detail       |
+| `/api/seat/create/`                        |`POST`  | Create Seat           |
+| `/api/seat/`                               |`GET`   | GET All Seats         |
+| `/api/seat/<seat_id>/`                     |`GET`   | GET Seat Detail       |
 | `/api/seat/<seat/update`                   |`PUT`   | Update Booking Details  |
 | `/api/seat/<seat/delete`                   |`DELETE`| DELETE booking          |
 | `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
@@ -77,6 +81,26 @@ $ python manage.py runserver
 | `/api/payment/customer/`                   |`GET`   | Get customet payment    |
 | `/api/payment/<booking_id>/`               |`GET`   | GET payment Details     |
 
+# Normal Users (Normal Users)
+#### Are through:
+* the api /api/rest-auth/registration/
+* sign up on the web app
+#### Functions the normal user can do
+| Funcion                                 | Request| command                 |
+| ------------------------------------------ | -------| ------------------------|
+| `/api/rest-auth/registration/`             |`POST`  | Register a new user     |
+| `/api-token-auth/`                         |`POST`  | Login and retrieve token|
+| `/api/account/`                            |`POST`  | Get User Account        |
+| `/api/account/<user_id>/update/`           |`PUT`   | UPDATE User Account     |
+| `/api/flight/`                             |`GET`   | GET APp flights         |
+| `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
+| `/api/flight/<flight_id>/update`           |`PUT`   | Update Booking Details  |
+| `/api/flight/<flight_id>/delete`           |`DELETE`| DELETE booking          |
+| `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
+| `/api/bookings/customer/create/`           |`POST`  | Create Booking          |
+| `/api/bookings/<booking_id>/`              |`GET`   | GET booking Details     |
+| `/api/bookings/<booking_id>/update`        |`PUT`   | Update Booking Details  |
+| `/api/payment/customer/`                   |`GET`   | Get customet payment    |
 
 # Running the tests
  $ python manage.py test
