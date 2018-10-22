@@ -59,7 +59,10 @@ The /api-token-auth/ is the authentication endpoint, which will be http://127.0.
 The token is used in all the endpoints by adding the JWT+ token in the authorization header. Alternatively, the user can log in using the login links from the web application and the token will be generated, stored and refreshed by the application
 
 # Accesing the application
-The application can be accesed by using postman or for a better experience, using the web app.
+Django rest framework generates HTML pages and the application can be acceed using the web browser which gives the best experience. It can also be accesed using postman
+
+### Creating User
+
 
 # Users
 Users include staff(superusers) and Normal Users
@@ -70,7 +73,7 @@ $ python manage.py createsuperusers
 | Funcion                                 | Request| command                 |
 | ------------------------------------------ | -------| ------------------------|
 | `/api-token-auth/`                         |`POST`  | Login and retrieve token|
-| `/api/account/`                            |`POST`  | Get User Account        |
+| `/api/account/`                            |`GET`  | Get User Account        |
 | `/api/account/<user_id>/update/`           |`PUT`   | UPDATE User Account     |
 | `/api/flight/create/`                      |`POST`  | Create Flight           |
 | `/api/flight/`                             |`GET`   | GET All flights         |
@@ -100,7 +103,7 @@ $ python manage.py createsuperusers
 | ------------------------------------------ | -------| ------------------------|
 | `/api/rest-auth/registration/`             |`POST`  | Register a new user     |
 | `/api-token-auth/`                         |`POST`  | Login and retrieve token|
-| `/api/account/`                            |`POST`  | Get User Account        |
+| `/api/account/`                            |`GET`  | Get User Account        |
 | `/api/account/<user_id>/update/`           |`PUT`   | UPDATE User Account     |
 | `/api/flight/`                             |`GET`   | GET APp flights         |
 | `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
