@@ -53,7 +53,7 @@ class PaymentModelTest(TestCase):
                             price=50000
                         )
 
-        self.user = CustomUser.objects.create_user('test_username', 'test_username@example.com', 'da_password')
+        self.user = CustomUser.objects.create_superuser('test_username', 'test_username@example.com', 'da_password')
         self.seat = Seat.objects.create(name='1A')
         self.user2 = CustomUser.objects.create_user('test_username_2', 'test_username2@example.com', 'da_password')
         self.seat2 = Seat.objects.create(name='1A_2')

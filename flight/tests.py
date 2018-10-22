@@ -23,7 +23,7 @@ class FlightModelTest(TestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.user = CustomUser.objects.create_user(
+        self.user = CustomUser.objects.create_superuser(
             'test_username', 
             'test_username@example.com', 
             'da_password',

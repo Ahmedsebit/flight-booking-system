@@ -45,7 +45,8 @@ class BookingModelTest(TestCase):
                             price=50000
                         )
 
-        self.user = CustomUser.objects.create_user('test_username', 'test_username@example.com', 'da_password')
+        self.user = CustomUser.objects.create_superuser('test_username', 'test_username@example.com', 'da_password')
+        self.created_user = CustomUser.objects.get(username='test_username')
         self.seat = Seat.objects.create(name='1A')
         self.user2 = CustomUser.objects.create_user('test_username_2', 'test_username2@example.com', 'da_password')
         self.seat2 = Seat.objects.create(name='1A_2')
@@ -53,7 +54,7 @@ class BookingModelTest(TestCase):
         self.seat3 = Seat.objects.create(name='1A_3')
         self.booking = Booking.objects.create(user=self.user3, flight=self.flight, seat=self.seat3)
         self.client = APIClient()
-        self.client.force_authenticate(user=self.user)
+        self.client.force_authenticate(user=self.created_user)
 
     def create_booking(self, flight, seat, user):
         booking = Booking.objects.create(flight=flight, seat=seat, user=user)

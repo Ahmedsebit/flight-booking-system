@@ -22,7 +22,7 @@ class SeatModelTest(TestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.user = CustomUser.objects.create_user(
+        self.user = CustomUser.objects.create_superuser(
             'test_username', 
             'test_username@example.com', 
             'da_password',
@@ -50,7 +50,7 @@ class SeatModelTest(TestCase):
             Seat.objects.create(name='1A').full_clean()
 
     def test_create_seat_api(self):
-        request = self.client.post('/api/seats/create',
+        request = self.client.post('/api/seats/create/',
                                     json.dumps({'name':'1A'}),
                                     content_type='application/json'
                                     )
@@ -75,7 +75,7 @@ class SeatModelTest(TestCase):
         request = self.client.delete('/api/seats/'+str(self.seat.id)+'/delete/')
         self.assertEqual(request.status_code, 204)
 
-    def test_create_seat_api(self):
+    def test_update_seat_api(self):
         request = self.client.put('/api/seats/'+str(self.seat.id)+'/update/',
                                     json.dumps({'name':'1A'}),
                                     content_type='application/json'
