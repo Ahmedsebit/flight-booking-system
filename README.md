@@ -53,7 +53,8 @@ $ python manage.py runserver
 
 # Authentication
 ### Getting the token
-The /api-token-auth/ is the authentication endpoint, which will be http://127.0.0.1:8000/api-token-auth/ from local server. This token is gotten by submitting the username and password
+The /api-token-auth/ is the authentication endpoint, which will be http://127.0.0.1:8000/api-token-auth/ from local server. The token is retrieved by submitting the username and password
+
 ### Using the token
 The token is used in all the endpoints by adding the JWT+ token in the authorization header
 
