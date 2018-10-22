@@ -93,6 +93,15 @@ Media type:application/json
 }
 
 ```
+### Creating Seats
+Media type:application/json
+
+```
+{
+    "name": ""
+}
+
+```
 ### Creating Booking
 Media type:application/json
 
@@ -131,11 +140,11 @@ $ python manage.py createsuperusers
 | `/api/flight/<flight_id>/`                 |`GET`   | GET Flight Detail       |
 | `/api/flight/<flight_id>/update`           |`PUT`   | Update Booking Details  |
 | `/api/flight/<flight_id>/delete`           |`DELETE`| DELETE booking          |
-| `/api/seat/create/`                        |`POST`  | Create Seat           |
-| `/api/seat/`                               |`GET`   | GET All Seats         |
-| `/api/seat/<seat_id>/`                     |`GET`   | GET Seat Detail       |
-| `/api/seat/<seat/update`                   |`PUT`   | Update Booking Details  |
-| `/api/seat/<seat/delete`                   |`DELETE`| DELETE booking          |
+| `/api/seats/create/`                        |`POST`  | Create Seat           |
+| `/api/seats/`                               |`GET`   | GET All Seats         |
+| `/api/seats/<seat_id>/`                     |`GET`   | GET Seat Detail       |
+| `/api/seats/<seat_id>/update`                   |`PUT`   | Update Booking Details  |
+| `/api/seats/<seat_id>/delete`                   |`DELETE`| DELETE booking          |
 | `/api/bookings/customer/`                  |`GET`   | GET User bookings       |
 | `/api/bookings/customer/create/`           |`POST`  | Create Booking          |
 | `/api/bookings/<booking_id>/`              |`GET`   | GET booking Details     |
