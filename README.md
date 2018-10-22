@@ -40,7 +40,7 @@ $ cd flight-booking-system
 $ pip install -r requirements.txt
 
 ### 6) Make migrations:
-$ python manage.py makemigrations
+$ python manage.py makemigrations bookings user flight seats payment customer_account
 
 $ python manage.py migrate
 
@@ -50,6 +50,16 @@ $ python manage.py createsuperuser
 
 # Runserver
 $ python manage.py runserver
+
+# Authentication
+### Getting the token
+The /api-token-auth/ is the authentication endpoint, which will be http://127.0.0.1:8000/api-token-auth/ from local server. The token is retrieved by submitting the username and password
+
+### Using the token
+The token is used in all the endpoints by adding the JWT+ token in the authorization header. Alternatively, the user can log in using the login links from the web application and the token will be generated, stored and refreshed by the application
+
+# Accesing the application
+The application can be accesed by using postman or for a better experience, using the web app.
 
 # Users
 Users include staff(superusers) and Normal Users
@@ -103,4 +113,4 @@ $ python manage.py createsuperusers
 | `/api/payment/customer/`                   |`GET`   | Get customet payment    |
 
 # Running the tests
- $ python manage.py test
+ $ python manage.py test --with-coverage
