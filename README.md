@@ -68,16 +68,21 @@ Content: {
 }
 ### Registering Users
 Media type:application/json
-Content: {
+
+```
+{
     "username": "",
     "email": "",
     "password1": "",
     "password2": ""
 }
+```
 
 ### Creating Flight
 Media type:application/json
-Content: {
+
+```
+{
     "name": "",
     "location": "",
     "destination": "",
@@ -87,22 +92,28 @@ Content: {
     "price": null
 }
 
+```
 ### Creating Booking
 Media type:application/json
-Content: {
+
+```
+{
     "user_id": null,
     "flight_id": null,
     "seat_id": null
 }
 
-
-### Creating Payment
+```
+Creating Payment
 Media type:application/json
-Content:{
+
+```
+{
     "booking_id": null,
     "payment": ""
 }
 
+```
 
 # Users
 Users include staff(superusers) and Normal Users
