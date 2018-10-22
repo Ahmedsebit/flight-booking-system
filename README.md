@@ -40,7 +40,7 @@ $ cd flight-booking-system
 $ pip install -r requirements.txt
 
 ### 6) Make migrations:
-$ python manage.py makemigrations
+$ python manage.py makemigrations bookings user flight seats payment customer_account
 
 $ python manage.py migrate
 
