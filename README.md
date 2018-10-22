@@ -113,4 +113,4 @@ $ python manage.py createsuperusers
 | `/api/payment/customer/`                   |`GET`   | Get customet payment    |
 
 # Running the tests
- $ python manage.py test
+ $ python manage.py test --with-coverage
