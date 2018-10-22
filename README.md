@@ -60,8 +60,48 @@ The token is used in all the endpoints by adding the JWT+ token in the authoriza
 
 # Accesing the application
 Django rest framework generates HTML pages and the application can be acceed using the web browser which gives the best experience. It can also be accesed using postman
+### Retrieving token
+Media type:application/json
+Content: {
+"username": "",
+"password": ""
+}
+### Registering Users
+Media type:application/json
+Content: {
+    "username": "",
+    "email": "",
+    "password1": "",
+    "password2": ""
+}
 
-### Creating User
+### Creating Flight
+Media type:application/json
+Content: {
+    "name": "",
+    "location": "",
+    "destination": "",
+    "status": null,
+    "dapart": null,
+    "arrive": null,
+    "price": null
+}
+
+### Creating Booking
+Media type:application/json
+Content: {
+    "user_id": null,
+    "flight_id": null,
+    "seat_id": null
+}
+
+
+### Creating Payment
+Media type:application/json
+Content:{
+    "booking_id": null,
+    "payment": ""
+}
 
 
 # Users
