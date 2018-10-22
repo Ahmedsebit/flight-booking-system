@@ -59,13 +59,15 @@ The /api-token-auth/ is the authentication endpoint, which will be http://127.0.
 The token is used in all the endpoints by adding the JWT+ token in the authorization header. Alternatively, the user can log in using the login links from the web application and the token will be generated, stored and refreshed by the application
 
 # Accesing the application
-Django rest framework generates HTML pages and the application can be acceed using the web browser which gives the best experience. It can also be accesed using postman
+Django rest framework generates HTML pages and the application can be acceed using the web browser. I recomend accessing the application this way since it gives a better user experience. Users can first login from the application home page login link then post the url link and acces the api. The application can also be accesed using postman.
+
 ### Retrieving token
 Media type:application/json
 Content: {
 "username": "",
 "password": ""
 }
+
 ### Registering Users
 Media type:application/json
 
