@@ -17,7 +17,7 @@ if __name__ == '__main__':
         )
     if is_testing:
             import coverage
-            cov = coverage.coverage(source=['seats', 'flight', 'user', 'bookings','payment'], omit=['*tests.py','*migrations/*', '*urls.py', '*apps.py', '*forms.py', '*views.py*','*serializers.py*'])
+            cov = coverage.coverage(source=['seats', 'flight', 'user', 'bookings','payment'], omit=['*tests.py','*migrations/*', '*urls.py', '*apps.py', '*views.py*','*serializers.py*', '*send_notifications.py*'])
             cov.erase()
             cov.start()
 

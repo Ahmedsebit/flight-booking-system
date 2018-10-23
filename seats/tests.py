@@ -14,6 +14,7 @@ from rest_framework.test import force_authenticate
 import json
 from user.models import CustomUser
 from .models import Seat
+from .forms import SeatModelForm
 from .api.serializers import SeatModelSerializer
 # Create your tests here.
 
@@ -36,6 +37,11 @@ class SeatModelTest(TestCase):
 
     def test_seat_creation(self):
         s = self.create_seat("1A")
+        data = {'name': "18" }
+        form = SeatModelForm(data=data)
+        serializer = SeatModelSerializer(data=data)
+        self.assertTrue(serializer.is_valid())
+        self.assertTrue(form.is_valid())
         self.assertTrue(isinstance(s, Seat))
         self.assertTrue(s.name =='1A')
         self.assertEqual(s.__str__(), s.name)
@@ -54,14 +60,14 @@ class SeatModelTest(TestCase):
                                     json.dumps({'name':'1A'}),
                                     content_type='application/json'
                                     )
-        self.assertEqual(request.status_code, 201)
+        self.assertEqual(request.status_code, status.HTTP_201_CREATED)
 
     def test_get_seat_all_api(self):
         request = self.client.get('/api/seats/')
         seats = Seat.objects.all()
         serializer = SeatModelSerializer(seats, many=True)
         self.assertEqual(request.data, serializer.data)
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
 
     
     def test_get_seat_detail_api(self):
@@ -69,17 +75,17 @@ class SeatModelTest(TestCase):
         seats = Seat.objects.get(pk=self.seat.id)
         serializer = SeatModelSerializer(seats)
         self.assertEqual(request.data, serializer.data)
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
 
     def test_delete_seat_detail_api(self):
         request = self.client.delete('/api/seats/'+str(self.seat.id)+'/delete/')
-        self.assertEqual(request.status_code, 204)
+        self.assertEqual(request.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_update_seat_api(self):
         request = self.client.put('/api/seats/'+str(self.seat.id)+'/update/',
                                     json.dumps({'name':'1A'}),
                                     content_type='application/json'
                                     )
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
 
 
