@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.utils import timezone
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
@@ -16,6 +17,7 @@ from .models import Flight
 # Create your tests here.
 
 from .models import Flight
+from .forms import FlightModelForm
 
 User = get_user_model()
 
@@ -63,6 +65,17 @@ class FlightModelTest(TestCase):
                             '2018-11-02T00:00:00+05:00',
                             50000
                         )
+
+        data = {'name': f.name, 
+                'location':f.location,
+                'destination':f.destination,
+                'status':f.status,
+                'dapart':timezone.now(),
+                'arrive':'2018-11-02T00:00:00+05:00',
+                'price':f.price 
+                }
+        form = FlightModelForm(data=data)
+        self.assertFalse(form.is_valid())
         self.assertTrue(isinstance(f, Flight))
         self.assertTrue(f.name =="Flight1")
         self.assertEqual(f.__str__(), f.name)

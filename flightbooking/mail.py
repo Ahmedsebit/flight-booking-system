@@ -8,7 +8,7 @@ from django.utils import timezone
 
 def send_email(email_to, email_subject, email_message):
     # os.environ.get('SENDGRID_API_KEY')
-    sg = sendgrid.SendGridAPIClient(apikey='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')
+    sg = sendgrid.SendGridAPIClient(apikey='')
     from_email = Email("test@example.com")
     to_email = Email(email_to)
     subject = email_subject
