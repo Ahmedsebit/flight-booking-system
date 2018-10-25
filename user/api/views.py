@@ -17,6 +17,9 @@ class UserApiCreateView(generics.CreateAPIView):
 
 
 class UserApiDetailListView(generics.ListAPIView):
+    '''
+    Get a user details 
+    '''
     serializer_class = UserSerializer
     def get_queryset(self, *args, **kwargs):
         qs = CustomUser.objects.filter(id=self.request.user.id)
@@ -42,6 +45,9 @@ class UserApiDetailListView(generics.ListAPIView):
 
 
 class CustomUserApiUpdateView(generics.UpdateAPIView):
+    '''
+    Update a user details
+    '''
 
     queryset = CustomUser.objects.all()
     serializer_class = UserUpdateSerializer

@@ -9,6 +9,9 @@ from .serializers import CustomerAccountModelSerializer
 
 
 class CustomerAccountApiListView(generics.ListAPIView):
+    '''
+    Geta logged in user account
+    '''
 
     serializer_class = CustomerAccountModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
@@ -23,7 +26,9 @@ class CustomerAccountApiListView(generics.ListAPIView):
         return qs
 
 class CustomerAccountApiCreateView(generics.CreateAPIView):
-
+    '''
+    Create a new account
+    '''
     serializer_class = CustomerAccountModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
 

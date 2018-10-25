@@ -8,7 +8,9 @@ from .serializers import FlightModelSerializer, FlightModelUpdateSerializer
 
 
 class FlightApiListView(generics.ListAPIView):
-
+    '''
+    Get all flights
+    '''
     serializer_class = FlightModelSerializer
 
     def get_queryset(self, *args, **kwargs):
@@ -34,26 +36,34 @@ class FlightApiListView(generics.ListAPIView):
 
 
 class FlightAPICreateView(generics.CreateAPIView):
-
+    '''
+    Create a new flight. The request user needs to be admin
+    '''
     serializer_class = FlightModelSerializer
     permission_classes = [permissions.IsAdminUser]
 
 
 class FlightApiDetailView(generics.RetrieveAPIView):
-
+    '''
+    Get a flight details
+    '''
     queryset = Flight.objects.all()
     serializer_class = FlightModelSerializer
 
 
 class FlightApiDestroyView(generics.DestroyAPIView):
-
+    '''
+    Delete a flight
+    '''
     queryset = Flight.objects.all()
     serializer_class = FlightModelSerializer
     permission_classes = [permissions.IsAdminUser]
 
 
 class FlightApiUpdateView(generics.UpdateAPIView):
-
+    '''
+    Update a flight
+    '''
     queryset = Flight.objects.all()
     serializer_class = FlightModelUpdateSerializer
     permission_classes = [permissions.IsAdminUser]

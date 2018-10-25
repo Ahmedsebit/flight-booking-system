@@ -11,6 +11,9 @@ from rest_framework.authtoken.models import Token
 
 
 class BookingApiCustomerListView(generics.ListAPIView):
+    '''
+    Get all booking for a logged in user.
+    '''
 
     authentication_classes = (JSONWebTokenAuthentication, )
     serializer_class = BookingModelSerializer
@@ -26,7 +29,9 @@ class BookingApiCustomerListView(generics.ListAPIView):
 
 
 class BookingApiListView(generics.ListAPIView):
-
+    '''
+    Get all bookings made. The request user needs to be admin
+    '''
     permission_classes = [permissions.IsAdminUser]
     serializer_class = BookingModelSerializer
     
@@ -41,27 +46,35 @@ class BookingApiListView(generics.ListAPIView):
 
 
 class BookingAPICreateView(generics.CreateAPIView):
-
+    '''
+    Create a new booking
+    '''
     serializer_class = BookingModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiDetailView(generics.RetrieveAPIView):
-
+    '''
+    Get a booking details
+    '''
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiDestroyView(generics.DestroyAPIView):
-
+    '''
+    Delete a booking
+    '''
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class BookingApiUpdateView(generics.UpdateAPIView):
-
+    '''
+    Update a booking
+    '''
     queryset = Booking.objects.all()
     serializer_class = BookingModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
