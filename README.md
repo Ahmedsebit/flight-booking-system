@@ -61,6 +61,9 @@ The token is used in all the endpoints by adding the JWT+ token in the authoriza
 # Accesing the application
 Django rest framework generates HTML pages and the application can be acceed using the web browser. I recomend accessing the application this way since it gives a better user experience. Users can first login from the application home page login link then post the url link and acces the api. The application can also be accesed using postman.
 
+# Documentation
+I have documented the application useing swagger. The ducumentation can be accessed at the following url /docs. This will be http://127.0.0.1:8000/docs from the local server
+
 ### Retrieving token
 Media type:application/json
 Content: {
