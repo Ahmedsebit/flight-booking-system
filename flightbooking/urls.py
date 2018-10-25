@@ -21,12 +21,16 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+from rest_framework_swagger.views import get_swagger_view
 
 from .views import home, index, book, profile, SaveProfile, download_image, regular_expresion
 
+
+schema_view = get_swagger_view(title='Pastebin API')
 # from account.views import UserRegistrationView
 
 urlpatterns = [
+    url(r'^docs$', schema_view),
     path('', home, name='home'),
     path('index', index, name='index'),
     path('profile', profile, name='profile'),

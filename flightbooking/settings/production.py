@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'kronos',
     'django_nose',
     'whitenoise.runserver_nostatic',
+    'rest_framework_swagger',
 ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

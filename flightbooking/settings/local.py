@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'payment',
     'kronos',
-    'django_nose'
+    'django_nose',
+    'rest_framework_swagger',
 ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
