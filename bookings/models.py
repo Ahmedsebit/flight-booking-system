@@ -14,6 +14,7 @@ class Booking(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE, null=False)
     seat =  models.ForeignKey(Seat, on_delete=models.CASCADE, null=False)
+    timestamp   = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = (('user','flight'),('seat','flight'))

@@ -28,5 +28,6 @@ class BookingModelSerializer(serializers.ModelSerializer):
             'flight',
             'flight_id',
             'seat',
-            'seat_id'
+            'seat_id',
+            'timestamp'
         )

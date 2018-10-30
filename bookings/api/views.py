@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from django.db.models import Q
+import datetime
 from bookings.models import Booking
 from flight.models import Flight
 
@@ -21,7 +22,9 @@ class BookingApiCustomerListView(generics.ListAPIView):
     def get_queryset(self, *args, **kwargs):
         qs = Booking.objects.filter(user__id=self.request.user.id)
         query = self.request.GET.get("q", None)
-        if query is not None:
+        query_day =  self.request.GET.get("day", None)
+        print(query_day)
+        if query_day is not None:
             qs = qs.filter(
                 Q(ref__icontains=query)
                 )
@@ -35,12 +38,24 @@ class BookingApiListView(generics.ListAPIView):
     permission_classes = [permissions.IsAdminUser]
     serializer_class = BookingModelSerializer
     
+    
     def get_queryset(self, *args, **kwargs):
+        query = self.request.GET.get("q", None)
+        query_day =  self.request.GET.get("day", None)
+        print(query_day)
+
         qs = Booking.objects.all()
         query = self.request.GET.get("q", None)
         if query is not None:
             qs = qs.filter(
                 Q(ref__icontains=query)
+                )
+        if query_day is not None:
+            day = query_day.split(',')
+            day = datetime.datetime(int(day[0]), int(day[1]), int(day[2]))
+            print(day)
+            qs = qs.filter(
+                Q(timestamp__year=day.year, timestamp__month=day.month, timestamp__day=day.day)
                 )
         return qs
 
