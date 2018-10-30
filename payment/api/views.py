@@ -10,7 +10,9 @@ from rest_framework.authtoken.models import Token
 
 
 class PaymentApiCustomerListView(generics.ListAPIView):
-
+    '''
+    Get a logged in users all payments 
+    '''
     authentication_classes = (JSONWebTokenAuthentication, )
     serializer_class = PaymentModelSerializer
 
@@ -26,6 +28,9 @@ class PaymentApiCustomerListView(generics.ListAPIView):
 
 class PaymentApiListView(generics.ListAPIView):
 
+    '''
+    Get all payments. The request user needs to be admin
+    '''
     permission_classes = [permissions.IsAdminUser]
     serializer_class = PaymentModelSerializer
     
@@ -40,27 +45,36 @@ class PaymentApiListView(generics.ListAPIView):
 
 
 class PaymentAPICreateView(generics.CreateAPIView):
-
+    '''
+    Create a new payment
+    '''
     serializer_class = PaymentModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class PaymentApiDetailView(generics.RetrieveAPIView):
 
+    '''
+    Update a payment
+    '''
     queryset = Payment.objects.all()
     serializer_class = PaymentModelSerializer
     authentication_classes = (JSONWebTokenAuthentication, )
 
 
 class PaymentApiDestroyView(generics.DestroyAPIView):
-
+    '''
+    Delete a payment. The request user needs to be admin
+    '''
     queryset = Payment.objects.all()
     serializer_class = PaymentModelSerializer
     permission_classes = [permissions.IsAdminUser]
 
 
 class PaymentApiUpdateView(generics.UpdateAPIView):
-
+    '''
+    Update a payment
+    '''
     queryset = Payment.objects.all()
     serializer_class = PaymentModelSerializer
     permission_classes = [permissions.IsAdminUser]
