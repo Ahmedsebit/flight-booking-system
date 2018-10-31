@@ -19,6 +19,87 @@ from .models import CustomUser
 from payment.management.commands.send_notifications import Command
 # Create your tests here.
 
+from django.test import LiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+
+from seats.models import Seat
+from flight.models import Flight
+class AccountTestCase(LiveServerTestCase):
+
+    def setUp(self):
+        self.selenium = webdriver.Firefox()
+        self.selenium.implicitly_wait(20)
+        self.user = CustomUser.objects.create_user(
+            'test_username', 
+            'test_username@example.com', 
+            'da_password',
+        )
+        self.seat = Seat.objects.create(name="1E")
+        self.flight = Flight.objects.create(
+                        name="FlightTest",
+                        location = 'NRB',
+                        destination = "DAR",
+                        status = 1,
+                        dapart = '2018-11-01T00:00:00+05:00',
+                        arrive ='2018-11-02T00:00:00+05:00',
+                        price = 50000
+            )
+        super(AccountTestCase, self).setUp()
+
+    def tearDown(self):
+        self.selenium.quit()
+        super(AccountTestCase, self).tearDown()
+
+    def test_register(self):
+        
+        selenium = self.selenium
+        #Opening the link we want to test
+        selenium.get('http://127.0.0.1:8000/users/signup/')
+        #find the form element
+        username = selenium.find_element_by_id('id_username')
+        email = selenium.find_element_by_id('id_email')
+        password1 = selenium.find_element_by_id('id_password1')
+        password2 = selenium.find_element_by_id('id_password2')
+        submit = selenium.find_element_by_name('register')
+
+        #Fill the form with data
+        username.send_keys('ahmedamedy')
+        email.send_keys('staff@email.com')
+        password1.send_keys('123456wordpass')
+        password2.send_keys('123456wordpass')
+
+        #submitting the form
+        submit.send_keys(Keys.RETURN)
+
+        selenium.get('http://127.0.0.1:8000/user/login/')
+        #find the form element
+        username = selenium.find_element_by_id('id_username')
+        password1 = selenium.find_element_by_id('id_password')
+        submit = selenium.find_element_by_name('login')
+
+        #Fill the form with data
+        username.send_keys('ahmedamedy')
+        password1.send_keys('123456wordpass')
+        submit.send_keys(Keys.RETURN)
+
+        selenium.get('http://127.0.0.1:8000/bookings/create')
+        select1 = Select(selenium.find_element_by_id('id_user'))
+        select1.select_by_value(str(self.user.id))
+        select2 = Select(selenium.find_element_by_id('id_flight'))
+        select2.select_by_value(str(self.flight.id))
+        select3 = Select(selenium.find_element_by_id('id_seat'))
+        select3.select_by_value(str(self.seat.id))
+        submit = selenium.find_element_by_name('book')
+
+        # user = CustomUser.objects.get(username='unary')
+
+        #check the returned result
+        # assert user is not None
+
+
 
 def get_temporary_image(temp_file):
     size = (200, 200)
