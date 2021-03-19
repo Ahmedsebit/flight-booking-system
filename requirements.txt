@@ -10,7 +10,7 @@ django-filter==2.0.0
 django-kronos==1.0
 django-nose==1.4.6
 django-rest-auth==0.9.3
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 gunicorn==19.9.0
 idna==2.7
